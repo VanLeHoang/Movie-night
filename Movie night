@@ -1,1 +1,48 @@
 #this is an app to randomly recommand a movie/show to watch everyday based on input and keep track of the progress
+import time
+import random
+
+def banner(s):
+    #print banner
+    l = len(s) + 6
+    print("=" * l, f'{s:^{l}}', "=" * l, sep = "\n")
+    
+def typing(s):
+    #typewriter effect
+    speed = list(map(lambda x: x/100, range(1,11)))
+    t = 0
+    print()
+    for i in s:
+        if t >= len(speed):
+            t = 0
+        if i == " ":
+            time.sleep(speed[t])
+        print(i, end = '', flush = True)
+        time.sleep(speed[t])
+        t += 1
+    print()        
+
+if __name__ == '__main__':
+    movies = {}
+    welcome = "WELCOME TO MOVIE NIGHT"
+    banner(welcome)
+    intro = "!!! This is the app that help you choose a random movie to watch, you can also add to watch list or track your progress !!!"
+    typing(intro)
+    menu = ("What would you want to do?\n"
+            "\t1 - Add to watch list\n"
+            "\t2 - Track your progress\n"
+            "\t3 - Choose a movie\n"
+            "\t4 - Close app")
+    typing(menu)
+    print("Enter your command: ", end = '')
+    n = input().rstrip()
+
+    while n not in ['1','2','3','4']:
+        typing("Your command is incorrect, please choose again.")
+        typing(menu)
+        print("Enter your command: ", end = '')
+        n = input().rstrip()
+
+    if n == '4':
+        goodbye = "Thank you for using, have a great one !!!"
+        typing(goodbye)
