@@ -13,14 +13,27 @@ def typing(s):
     t = 0
     print()
     for i in s:
-        if t >= len(speed):
-            t = 0
+        t = t % len(speed)
         if i == " ":
             time.sleep(speed[t])
         print(i, end = '', flush = True)
         time.sleep(speed[t])
         t += 1
     print()        
+    
+def menu():
+    typing("What would you want to do?\n"
+           "\t1 - Add to watch list\n"
+           "\t2 - Track your progress\n"
+           "\t3 - Choose a movie\n"
+           "\t4 - Close app\n"
+           "\t(choose 0 to return to the main menu)")
+    print("Enter your command: ", end = '')
+    
+def add():
+    typing("Please enter the name of your show or movie\n"
+            "(Choose 0 to return to menu or 4 to quit)")
+    print("Your input: ", end = '')
 
 if __name__ == '__main__':
     movies = {}
@@ -28,21 +41,35 @@ if __name__ == '__main__':
     banner(welcome)
     intro = "!!! This is the app that help you choose a random movie to watch, you can also add to watch list or track your progress !!!"
     typing(intro)
-    menu = ("What would you want to do?\n"
-            "\t1 - Add to watch list\n"
-            "\t2 - Track your progress\n"
-            "\t3 - Choose a movie\n"
-            "\t4 - Close app")
-    typing(menu)
-    print("Enter your command: ", end = '')
+    menu()
     n = input().rstrip()
-
-    while n not in ['1','2','3','4']:
-        typing("Your command is incorrect, please choose again.")
-        typing(menu)
-        print("Enter your command: ", end = '')
+    
+    while n not in ['0','1','2','3','4']:
+        print("\n\t! Your command is INCORRECT, please try again !")
+        menu()
         n = input().rstrip()
-
-    if n == '4':
-        goodbye = "Thank you for using, have a great one !!!"
-        typing(goodbye)
+        
+    while True:
+        if n == '0':
+            print("\n\t- You have returned to the main menu -")
+            menu()
+            n = input().rstrip()
+        if n == '4':
+            typing("Thank you for using, have a great one !!!")
+            break
+        if n == '1':
+            add()
+            m = [input().rstrip()]
+            if m[0] in ['0','4']:
+                n = m[0]
+                continue
+            typing(f'How many episodes does "{m[0]}" have? (please type a number)')
+            print("Your input: ", end = '')
+            m.append(input().rstrip().split())
+            while len(m[1]) != 1 or int(m[1]) < 0:
+                print("\n\t! The number of episode is INCORRECT, please try again !")
+                typing(f'How many episodes does "{m[0]}" have? (please type a number)')
+                print("Your input: ", end = '')
+                m[1] = input().rstrip().split()
+            typing(f'\t- You have successfully added "{m[0]}" with {m[1]} episode(s)-')
+                
