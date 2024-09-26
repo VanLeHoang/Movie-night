@@ -48,6 +48,7 @@ def watchlist():
 def randommovie():
     typing("The movie you should watch tonight is...")
     seed = random.randrange(len(movies))
+    typing(list(movies)[seed])
 
 if __name__ == '__main__':
     movies = {}
@@ -101,4 +102,6 @@ if __name__ == '__main__':
                 print("\n\t! Your watch list is empty, please add a movie !")
                 n = '1'
         if n == '3':
+            print("\n" + "-" * 30)
             randommovie()
+            n = "0"
