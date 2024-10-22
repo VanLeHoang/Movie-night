@@ -1,4 +1,4 @@
-# MOVIE NIGHT
+# MOVIE NIGHT in Python
 This is a simple project that randomize a list of input movies to help you decide what to watch and also track your progress.
 
 - Language: Python
